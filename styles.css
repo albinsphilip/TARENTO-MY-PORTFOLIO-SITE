@@ -1,1 +1,14 @@
 /* neon stylez */
+* { margin:0; padding:0; box-sizing:border-box }
+body { font-family:'Inter',sans-serif; background:#000; color:#fff }
+.navbar { position:fixed; top:0; width:100%; background:rgba(10,10,10,0.9); display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; z-index:1000 }
+.logo { font-family:'Orbitron',sans-serif; font-size:1.5rem; background:linear-gradient(to right,#ff0000,#00ff00); -webkit-background-clip:text; color:transparent }
+.nav-links { display:flex; gap:2rem }
+.nav-link { color:#fff; text-decoration:none }
+.nav-link:hover { color:#ff0000 }
+.hero-section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:6rem 2rem }
+.neon-title { font-family:'Black Ops One',system-ui; font-size:4rem; background:linear-gradient(to right,#ff0000,#00ff00); -webkit-background-clip:text; color:transparent }
+.subtitle { font-size:1.5rem; color:#ccc }
+.glow-line { width:100px; height:4px; background:linear-gradient(to right,#ff0000,#00ff00); margin:2rem 0 }
+.hero-image { width:400px; border-radius:10px }
+/* found this gradient trick online */
