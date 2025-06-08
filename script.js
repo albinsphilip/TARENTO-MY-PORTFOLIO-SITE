@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 gsap.utils.toArray(".section, .grid > *, .skills-grid > *").forEach(el => {
     gsap.fromTo(el, { y: el.classList.contains('section') ? 100 : 60, opacity: 0 }, {
         y: 0,
-        opacity: el.clientList.contains('opacity'),
+        opacity: 1,
         duration: el.classList.contains('section') ? 1.2 : 0.8,
         ease: el.classList.contains('section') ? "power3.out" : "back.out(1.7)",
         scrollTrigger: {
@@ -66,4 +66,3 @@ document.querySelectorAll('.nav-link, .skill-item, .card, .social-link').forEach
     el.addEventListener('mouseenter', () => cursor.classList.add('active'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
 });
-// found cursor trick on codepen
