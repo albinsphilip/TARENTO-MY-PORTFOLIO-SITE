@@ -1,5 +1,5 @@
 // particles
-particlsJS("particles-js", {
+particlesJS("particles-js", {
     particles: {
         number: { value: 80 },
         color: { value: ["#00f0ff", "#004aff"] },
@@ -12,7 +12,21 @@ particlsJS("particles-js", {
     interactivity: {
         events: { onhover: { enable: true, mode: "bubble" }, onclick: { enable: true, mode: "push" } },
         modes: { bubble: { distance: 200, size: 5 }, push: { particles_nb: 3 } }
-    }
+    });
+
+// gsap animations
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray(".section, .grid *, .skills-grid *").forEach(el => {
+    gsap.fromTo(el, { y: 60, opacity: 0 }, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "back.out",
+        scrollTrigger: {
+            trigger: el.parentElement,
+            start: "top 85%"
+        }
+    });
 });
 
 // typed effect
@@ -23,7 +37,30 @@ new Typed('#typed-text', {
     backDelay: 2000,
     loop: true,
     showCursor: true,
-    cursorChar: '|',
-    startDelay: 500
+    cursorChar: '|'
 });
-// copied from particles.js docs
+
+// smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// cursor effect
+const cursor = document.createElement('div');
+cursor.classList.add('custom-cursor');
+document.body.appendChild(cursor);
+const cursorStyle = document.createElement('style');
+cursorStyle.textContent = `.custom-cursor { position: 20px; width: 20px; height: 20px; background: radial-gradient(circle, rgba(0,240,255,0.5), transparent); border-radius: 50%; pointer-events: none; z-index: 1000; transform: translate(-50%, -50%); transition: transform 0.1s }`;
+document.head.appendChild(cursorStyle);
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('.nav-link').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+// found cursor trick on codepen
