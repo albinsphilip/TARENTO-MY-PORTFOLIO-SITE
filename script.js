@@ -12,19 +12,21 @@ particlesJS("particles-js", {
     interactivity: {
         events: { onhover: { enable: true, mode: "bubble" }, onclick: { enable: true, mode: "push" } },
         modes: { bubble: { distance: 200, size: 5 }, push: { particles_nb: 3 } }
-    });
+    }
+});
 
 // gsap animations
 gsap.registerPlugin(ScrollTrigger);
-gsap.utils.toArray(".section, .grid *, .skills-grid *").forEach(el => {
-    gsap.fromTo(el, { y: 60, opacity: 0 }, {
+gsap.utils.toArray(".section, .grid > *, .skills-grid > *").forEach(el => {
+    gsap.fromTo(el, { y: el.classList.contains('section') ? 100 : 60, opacity: 0 }, {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "back.out",
+        opacity: el.clientList.contains('opacity'),
+        duration: el.classList.contains('section') ? 1.2 : 0.8,
+        ease: el.classList.contains('section') ? "power3.out" : "back.out(1.7)",
         scrollTrigger: {
-            trigger: el.parentElement,
-            start: "top 85%"
+            trigger: el.parentElement.classList.contains('grid') || el.parentElement.classList.contains('skills-grid') ? el.parentElement : el,
+            start: "top 85%",
+            toggleActions: "play none none reset"
         }
     });
 });
@@ -37,7 +39,8 @@ new Typed('#typed-text', {
     backDelay: 2000,
     loop: true,
     showCursor: true,
-    cursorChar: '|'
+    cursorChar: '|',
+    startDelay: 500
 });
 
 // smooth scroll
@@ -53,13 +56,13 @@ const cursor = document.createElement('div');
 cursor.classList.add('custom-cursor');
 document.body.appendChild(cursor);
 const cursorStyle = document.createElement('style');
-cursorStyle.textContent = `.custom-cursor { position: 20px; width: 20px; height: 20px; background: radial-gradient(circle, rgba(0,240,255,0.5), transparent); border-radius: 50%; pointer-events: none; z-index: 1000; transform: translate(-50%, -50%); transition: transform 0.1s }`;
+cursorStyle.textContent = `.custom-cursor { position: fixed; width: 20px; height: 20px; background: radial-gradient(circle, rgba(0,240,255,0.5), transparent); border-radius: 50%; pointer-events: none; z-index: 1000; transform: translate(-50%, -50%); transition: transform 0.1s, background 0.2s; } .custom-cursor.active { transform: translate(-50%, -50%) scale(1.5); background: radial-gradient(circle, rgba(0,74,255,0.7), transparent); }`;
 document.head.appendChild(cursorStyle);
 document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 });
-document.querySelectorAll('.nav-link').forEach(el => {
+document.querySelectorAll('.nav-link, .skill-item, .card, .social-link').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('active'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
 });
